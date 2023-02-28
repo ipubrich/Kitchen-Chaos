@@ -10,7 +10,35 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask countersLayerMask;
     private bool isWalking;
     private Vector3 lastInteractDir;
-    
+
+    public void Start()
+    {
+        gameInput.OnInteraction += GameInput_OnInteraction;
+    }
+
+    private void GameInput_OnInteraction(object sender, EventArgs e)
+    {
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector3 moveDir = new(inputVector.x, 0f, inputVector.y);
+
+        if (moveDir != Vector3.zero)
+        {
+            // capture last interaction direction
+            lastInteractDir = moveDir;
+        }
+        float interactDistance = 2f;
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
+        {
+            // this is like transform.GetComponent<ClearCounter>();
+            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            {
+                // Has ClearCounter
+                clearCounter.Interact();
+                Debug.Log("Interact");
+            }
+        }
+    }
+
     private void Update()
     {
         HandleInteractions();
@@ -38,8 +66,7 @@ public class Player : MonoBehaviour
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
             // Has ClearCounter
-            clearCounter.Interact();
-                Debug.Log("Interact");
+        
             }
         } 
     }
