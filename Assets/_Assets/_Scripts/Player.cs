@@ -7,8 +7,43 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private LayerMask countersLayerMask;
     private bool isWalking;
+    private Vector3 lastInteractDir;
+    
     private void Update()
+    {
+        HandleInteractions();
+        HandleMovement();
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
+    }
+    private void HandleInteractions()
+    {
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector3 moveDir = new(inputVector.x, 0f, inputVector.y);
+
+        if (moveDir != Vector3.zero)
+        {
+            // capture last interaction direction
+            lastInteractDir = moveDir;
+        }
+        float interactDistance = 2f;
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
+        {
+            // this is like transform.GetComponent<ClearCounter>();
+            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            {
+            // Has ClearCounter
+            clearCounter.Interact();
+                Debug.Log("Interact");
+            }
+        } 
+    }
+    private void HandleMovement()
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         Vector3 moveDir = new(inputVector.x, 0f, inputVector.y);
@@ -29,13 +64,14 @@ public class Player : MonoBehaviour
             {
                 // can only move on X axis 
                 moveDir = moveDirX;
-            } else
+            }
+            else
             {
                 // Cannot move on Z axis
                 // Attempt only Z movement
                 Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
                 canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
-               
+
                 if (canMove)
                 {
                     // can only move on Z axis 
@@ -50,7 +86,7 @@ public class Player : MonoBehaviour
 
             }
         }
-            if (canMove)
+        if (canMove)
         {
             transform.position += moveSpeed * Time.deltaTime * moveDir;
         }
@@ -59,12 +95,6 @@ public class Player : MonoBehaviour
 
         float rotateSpeed = 10f;
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-
-    }
-
-    public bool IsWalking()
-    {
-        return isWalking;
     }
 
 }
