@@ -736,10 +736,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2238902606002154392, guid: afbc41cf5aa681c488f271c76d1baa6f,
         type: 3}
+      propertyPath: testing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2238902606002154392, guid: afbc41cf5aa681c488f271c76d1baa6f,
+        type: 3}
       propertyPath: kitchenObjectSO
       value: 
       objectReference: {fileID: 11400000, guid: d33053bff3105f542b279e83eeb445fc,
         type: 2}
+    - target: {fileID: 2238902606002154392, guid: afbc41cf5aa681c488f271c76d1baa6f,
+        type: 3}
+      propertyPath: secondClearCounter
+      value: 
+      objectReference: {fileID: 1009731373792250143}
     - target: {fileID: 7478622463819445954, guid: afbc41cf5aa681c488f271c76d1baa6f,
         type: 3}
       propertyPath: m_RootOrder
@@ -1213,6 +1223,18 @@ MonoBehaviour:
   m_AmplitudeGain: 0.125
   m_FrequencyGain: 0.125
   mNoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &1009731373792250143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2238902606002154392, guid: afbc41cf5aa681c488f271c76d1baa6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1229877815801815687}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c62d33311cd514fac331e4f63083eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1229877815801815687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1227,6 +1249,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 008d04b277f59034ea7072b4720ea9e0,
         type: 2}
+    - target: {fileID: 2238902606002154392, guid: afbc41cf5aa681c488f271c76d1baa6f,
+        type: 3}
+      propertyPath: secondClearCounter
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7478622463819445954, guid: afbc41cf5aa681c488f271c76d1baa6f,
         type: 3}
       propertyPath: m_RootOrder
