@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5852146040302257481}
   - component: {fileID: 8743005137297938830}
   m_Layer: 0
-  m_Name: ObjectSprite
+  m_Name: CheeseBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
