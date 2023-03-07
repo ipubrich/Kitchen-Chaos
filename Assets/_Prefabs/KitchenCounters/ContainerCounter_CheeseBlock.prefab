@@ -14,6 +14,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d33053bff3105f542b279e83eeb445fc,
         type: 2}
+    - target: {fileID: 5852146040302257481, guid: 8ec9fda0c1b33bb4ca3cca36087678f0,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.135
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852146040302257481, guid: 8ec9fda0c1b33bb4ca3cca36087678f0,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1298077
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852146040302257481, guid: 8ec9fda0c1b33bb4ca3cca36087678f0,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.298077
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852146040302257481, guid: 8ec9fda0c1b33bb4ca3cca36087678f0,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7964426422354098853, guid: 8ec9fda0c1b33bb4ca3cca36087678f0,
         type: 3}
       propertyPath: m_RootOrder
@@ -72,7 +92,12 @@ PrefabInstance:
     - target: {fileID: 7964426422354098859, guid: 8ec9fda0c1b33bb4ca3cca36087678f0,
         type: 3}
       propertyPath: m_Name
-      value: ContainerCounterCheeseBlock
+      value: ContainerCounter_CheeseBlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 8743005137297938830, guid: 8ec9fda0c1b33bb4ca3cca36087678f0,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
