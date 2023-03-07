@@ -24,7 +24,7 @@ public class PlatesCounterVisual : MonoBehaviour
 
     private void PlatesCounter_OnPlateRemoved(object sender, EventArgs e)
     {
-        GameObject plateGameObject = plateVisualGameObjectList[plateVisualGameObjectList.Count - 1];
+        GameObject plateGameObject = plateVisualGameObjectList[^1];
         plateVisualGameObjectList.Remove(plateGameObject);
         Destroy(plateGameObject);
     }
