@@ -1,19 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlateKitchenObject : KitchenObject
 {
-    // Allowed plate ingredients
+
+
+    public event EventHandler<OnIngredientAddedEventArgs> OnIngredientAdded;
+    public class OnIngredientAddedEventArgs : EventArgs
+    {
+        public KitchenObjectSO kitchenObjectSO;
+    }
+
+
     [SerializeField] private List<KitchenObjectSO> validKitchenObjectSOList;
+
+
     private List<KitchenObjectSO> kitchenObjectSOList;
+
 
     private void Awake()
     {
         kitchenObjectSOList = new List<KitchenObjectSO>();
     }
-    // Kitchen object with extra logic
+
     public bool TryAddIngredient(KitchenObjectSO kitchenObjectSO)
     {
         if (!validKitchenObjectSOList.Contains(kitchenObjectSO))
@@ -23,13 +34,25 @@ public class PlateKitchenObject : KitchenObject
         }
         if (kitchenObjectSOList.Contains(kitchenObjectSO))
         {
-            // Kitchen object type already on the plate
+            // Already has this type
             return false;
         }
         else
         {
             kitchenObjectSOList.Add(kitchenObjectSO);
+
+            OnIngredientAdded?.Invoke(this, new OnIngredientAddedEventArgs
+            {
+                kitchenObjectSO = kitchenObjectSO
+            });
+
             return true;
         }
     }
+
+    public List<KitchenObjectSO> GetKitchenObjectSOList()
+    {
+        return kitchenObjectSOList;
+    }
+
 }
