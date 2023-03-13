@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeliveryCounter : BaseCounter {
 
 
+    // singleton for audio
     public static DeliveryCounter Instance { get; private set; }
 
 

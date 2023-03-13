@@ -8,6 +8,9 @@ public class DeliveryManager : MonoBehaviour
 {
     public event EventHandler OnRecipeSpawned;
     public event EventHandler OnRecipeCompleted;
+    // audio events
+    public event EventHandler OnRecipeSuccess;
+    public event EventHandler OnRecipeFailed;
 
     public static DeliveryManager Instance
     {
@@ -87,12 +90,14 @@ public class DeliveryManager : MonoBehaviour
                     // Player delivered the correct recipe!
                     waitingRecipeList.RemoveAt(i);
                     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
+                    OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
                     return;
                 }
             }
         }
         // No Matches found!
         // Player did not deliver a correct recipe
+        OnRecipeFailed?.Invoke(this, EventArgs.Empty);
 
     }
 
