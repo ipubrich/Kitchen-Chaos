@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameStartCountdownUI : MonoBehaviour
+public class GameOverUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI countdownText;
+    [SerializeField] TextMeshProUGUI recipesDeliveredText;
 
     private void Start()
     {
@@ -13,11 +13,13 @@ public class GameStartCountdownUI : MonoBehaviour
         Hide();
     }
 
+
     private void Instance_OnStateChanged(object sender, System.EventArgs e)
     {
-        if (GameManager.Instance.IsCountdownToStartActive())
+        if (GameManager.Instance.IsGameOver())
         {
             Show();
+            recipesDeliveredText.text = DeliveryManager.Instance.GetSuccessfulRecipesAmount().ToString();
         }
         else
         {
@@ -25,10 +27,6 @@ public class GameStartCountdownUI : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        countdownText.text = Mathf.Ceil(GameManager.Instance.GetCountdownToStartTimer()).ToString();
-    }
     private void Show()
     {
         gameObject.SetActive(true);
@@ -38,4 +36,5 @@ public class GameStartCountdownUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
 }
