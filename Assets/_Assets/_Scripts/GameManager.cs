@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
 
     // Fire event on state changes
     public event EventHandler OnStateChanged;
+    public event EventHandler OnGamePaused;
+    public event EventHandler OnGameUnPaused;
+
 
     // Define states game can be in
     private enum State
@@ -26,13 +29,25 @@ public class GameManager : MonoBehaviour
     private float countdownToStartTimer = 3f;
     private float gamePlayingTimer;
     private float gamePlayingTimerMax = 10f;
-
+    private bool isGamePaused = false;
     private void Awake()
     {
         Instance = this;
         state = State.WaitingToStart; // Multiplayer & Game Start
     }
 
+    private void Start()
+    {
+        // Listen to pause event action map
+        GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+    }
+
+    private void GameInput_OnPauseAction(object sender, EventArgs e)
+    {
+        TogglePause();
+    }
+
+  
     private void Update()
     {
         switch (state)
@@ -91,5 +106,21 @@ public class GameManager : MonoBehaviour
     public float GetGamePlayingTimerNormalized()
     {
         return 1 - (gamePlayingTimer / gamePlayingTimerMax); // reverses output
+    }
+
+    public void TogglePause()
+    {
+        isGamePaused = !isGamePaused;
+        if (isGamePaused)
+        {
+            Time.timeScale = 0f;
+            OnGamePaused?.Invoke(this, EventArgs.Empty); // send to game pause UI
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            OnGameUnPaused?.Invoke(this, EventArgs.Empty); // send to game pause UI
+        }
+            
     }
 }

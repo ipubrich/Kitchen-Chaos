@@ -21,7 +21,7 @@ public class MainMenuUI : MonoBehaviour
             Application.Quit();
         });
 
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; // if time is 0 as this scene loads, this resets it
     }
 
 }

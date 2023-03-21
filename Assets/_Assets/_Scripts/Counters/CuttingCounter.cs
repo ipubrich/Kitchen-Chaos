@@ -7,7 +7,14 @@ using UnityEngine.EventSystems;
 
 public class CuttingCounter : BaseCounter, IHasProgress
 {
-    public static event EventHandler OnAnyCut; // single event for any number of CuttinCounters
+    // single event for any number of CuttinCounters, remember to manually reset states on sceneload with ResetStatic()
+    public static event EventHandler OnAnyCut; 
+
+    new public static void ResetStaticData()
+    {
+        OnAnyCut = null;
+    }
+
     public event EventHandler <IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
     public event EventHandler OnCut;
 
@@ -76,6 +83,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
         {
             cuttingProgress++;
             OnCut?.Invoke(this, EventArgs.Empty); // Action
+            // Debug.Log(OnAnyCut.GetInvocationList().Length); // check for listeners - statics need to be cleaned up ResetStaticClassManager
             OnAnyCut?.Invoke(this, EventArgs.Empty); // Audio
             CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
 
