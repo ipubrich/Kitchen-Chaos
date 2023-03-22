@@ -20,6 +20,9 @@ public class GameInput : MonoBehaviour
         Interact,
         Interact_Alternate,
         Pause,
+        Gamepad_Interact,
+        Gamepad_InteractAlternate,
+        Gamepad_Pause
     }
 
     // takes inputs from PlayerInputActions "player" input action map as vector 2
@@ -90,18 +93,30 @@ public class GameInput : MonoBehaviour
 
     public string GetBindingText(Binding binding)
     {
-        return binding switch
+        switch (binding)
         {
-            Binding.Move_Up => playerInputActions.Player.Move.bindings[1].ToDisplayString(),
-            Binding.Move_Down => playerInputActions.Player.Move.bindings[2].ToDisplayString(),
-            Binding.Move_Left => playerInputActions.Player.Move.bindings[3].ToDisplayString(),
-            Binding.Move_Right => playerInputActions.Player.Move.bindings[4].ToDisplayString(),
-            
-            Binding.Interact => playerInputActions.Player.Interact.bindings[0].ToDisplayString(),
-            Binding.Interact_Alternate => playerInputActions.Player.InteractAlternate.bindings[0].ToDisplayString(),
-            Binding.Pause => playerInputActions.Player.Pause.bindings[0].ToDisplayString(),
-            _ => playerInputActions.Player.Move.bindings[1].ToDisplayString(),
-        };
+            default:
+            case Binding.Move_Up:
+                return playerInputActions.Player.Move.bindings[1].ToDisplayString();
+            case Binding.Move_Down:
+                return playerInputActions.Player.Move.bindings[2].ToDisplayString();
+            case Binding.Move_Left:
+                return playerInputActions.Player.Move.bindings[3].ToDisplayString();
+            case Binding.Move_Right:
+                return playerInputActions.Player.Move.bindings[4].ToDisplayString();
+            case Binding.Interact:
+                return playerInputActions.Player.Interact.bindings[0].ToDisplayString();
+            case Binding.Interact_Alternate:
+                return playerInputActions.Player.InteractAlternate.bindings[0].ToDisplayString();
+            case Binding.Pause:
+                return playerInputActions.Player.Pause.bindings[0].ToDisplayString();
+            case Binding.Gamepad_Interact:
+                return playerInputActions.Player.Interact.bindings[1].ToDisplayString();
+            case Binding.Gamepad_InteractAlternate:
+                return playerInputActions.Player.InteractAlternate.bindings[1].ToDisplayString();
+            case Binding.Gamepad_Pause:
+                return playerInputActions.Player.Pause.bindings[1].ToDisplayString();
+        }
     }
 
     public void RebindBinding(Binding binding, Action onActionRebound) // Action is a built in delegate takes no parameters and returns void
@@ -142,6 +157,18 @@ public class GameInput : MonoBehaviour
             case Binding.Pause:
                 inputAction = playerInputActions.Player.Pause;
                 bindingIndex = 0;
+                break;
+            case Binding.Gamepad_Interact:
+                inputAction = playerInputActions.Player.Interact;
+                bindingIndex = 1;
+                break;
+            case Binding.Gamepad_InteractAlternate:
+                inputAction = playerInputActions.Player.InteractAlternate;
+                bindingIndex = 1;
+                break;
+            case Binding.Gamepad_Pause:
+                inputAction = playerInputActions.Player.Pause;
+                bindingIndex = 1;
                 break;
         }
         inputAction.PerformInteractiveRebinding(bindingIndex)
