@@ -9,6 +9,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnInteraction;
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnPauseAction;
+    public event EventHandler OnBindingRebind;
 
     public enum Binding
     {
@@ -183,6 +184,9 @@ public class GameInput : MonoBehaviour
                 Debug.Log(playerInputActions.SaveBindingOverridesAsJson()); // output changes to actionmap as json
                 PlayerPrefs.SetString(PLAYER_PREFS_BINDINGS, playerInputActions.SaveBindingOverridesAsJson()); // save binds to PlayerPrefs
                 PlayerPrefs.Save();
+
+                // update tutorial with event
+                OnBindingRebind?.Invoke(this, EventArgs.Empty);
             })
             .Start(); //starts the rebind process
 

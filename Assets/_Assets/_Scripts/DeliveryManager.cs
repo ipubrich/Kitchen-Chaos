@@ -41,7 +41,7 @@ public class DeliveryManager : MonoBehaviour
     {
         // Create recipe
         spawnRecipeTimer -= Time.deltaTime;
-        if (spawnRecipeTimer <= 0f)
+        if (GameManager.Instance.IsGamePlaying() && spawnRecipeTimer <= 0f)
         {
             spawnRecipeTimer = spawnRecipeTimerMax;
 
