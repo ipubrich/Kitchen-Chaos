@@ -39,6 +39,7 @@ public class KitchenGameMultiplayer : NetworkBehaviour
         // Try to get network object that was originally sent
         kitchenObjectParentNetworkObjectReference.TryGet(out NetworkObject kitchenObjectParentNetworkObject);
         IKitchenObjectParent kitchenObjectParent = kitchenObjectParentNetworkObject.GetComponent<IKitchenObjectParent>();
+
         kitchenObject.SetKitchenObjectParent(kitchenObjectParent);
     }
 

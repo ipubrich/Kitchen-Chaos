@@ -8,7 +8,12 @@ public class KitchenObject : NetworkBehaviour
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
     
     private IKitchenObjectParent kitchenObjectParent;
+    private FollowTransform followTransform;
 
+    protected virtual void Awake() // Runs virtually when calld from PlateKitchenObject. Needed due to issues with how unity runs the awake function.
+    {
+        followTransform = GetComponent<FollowTransform>();
+    }
     public KitchenObjectSO GetKitchenObjectSO()
     {
         return kitchenObjectSO;
@@ -16,13 +21,28 @@ public class KitchenObject : NetworkBehaviour
 
     public void SetKitchenObjectParent(IKitchenObjectParent  kitchenObjectParent)
     {
+        SetKitchenObjectParentServerRpc(kitchenObjectParent.GetNetworkObject());
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetKitchenObjectParentServerRpc(NetworkObjectReference kitchenObjectParentNetworkObjectReference) 
+    {
+        SetKitchenObjectParentClientRpc(kitchenObjectParentNetworkObjectReference);
+    }
+
+    [ClientRpc]
+    private void SetKitchenObjectParentClientRpc(NetworkObjectReference kitchenObjectParentNetworkObjectReference)
+    {
+        kitchenObjectParentNetworkObjectReference.TryGet(out NetworkObject kitchenObjectParentNetworkObject);
+        IKitchenObjectParent kitchenObjectParent = kitchenObjectParentNetworkObject.GetComponent<IKitchenObjectParent>();
+
         if (this.kitchenObjectParent != null)
         {
             this.kitchenObjectParent.ClearKitchenObject();
         }
 
         this.kitchenObjectParent = kitchenObjectParent;
-        
+
         if (kitchenObjectParent.HasKitchenObject())
         {
             Debug.LogError("IkitchenObjectParent already has a KitchenObject!");
@@ -30,12 +50,9 @@ public class KitchenObject : NetworkBehaviour
 
         kitchenObjectParent.SetKitchenObject(this);
 
-        //transform.parent = kitchenObjectParent.GetKitchenObjectFollowTransform();
-        //transform.localPosition = Vector3.zero;
-
-
+        // set hold object to follow parent - does not set as child object as netcode is shit
+        followTransform.SetTargetTransform(kitchenObjectParent.GetKitchenObjectFollowTransform());
     }
-    
     public IKitchenObjectParent GetKitchenObjectParent()
     {
         return kitchenObjectParent;
