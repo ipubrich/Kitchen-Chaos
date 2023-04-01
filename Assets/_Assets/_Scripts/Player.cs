@@ -6,10 +6,15 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour, IKitchenObjectParent
 {
+    public static event EventHandler OnAnyPlayerSpawned; // trigger event for ANY network player OnNetworkSpawn()
+    public static event EventHandler OnAnyPickedSomething; // trigger event for ANY network player picked up item
 
-
-    //public static Player Instance { get; private set; }
-
+    // instance cleanup
+    public static void ResetStaticData()
+    {
+        OnAnyPlayerSpawned = null;
+    }
+    public static Player LocalInstance { get; private set; }
 
 
     public event EventHandler OnPickedSomething;
@@ -32,16 +37,24 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
     private KitchenObject kitchenObject;
 
 
-    private void Awake()
-    {
-   
-        //Instance = this;
-    }
+    //private void Awake()
+    //{
+    //    Instance = this; // (for offline games)
+    //}
 
     private void Start()
     {
         GameInput.Instance.OnInteraction += GameInput_OnInteractAction;
         GameInput.Instance.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            LocalInstance = this;
+            OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
@@ -192,6 +205,7 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
         if (kitchenObject != null)
         {
             OnPickedSomething?.Invoke(this, EventArgs.Empty);
+            OnAnyPickedSomething?.Invoke(this, EventArgs.Empty);
         }
     }
 
