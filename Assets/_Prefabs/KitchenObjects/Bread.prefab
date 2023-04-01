@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1307462282124704501}
   - component: {fileID: 4146796997451656971}
+  - component: {fileID: -3294190514224955292}
   m_Layer: 0
   m_Name: Bread
   m_TagString: Untagged
@@ -46,12 +47,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kitchenObjectSO: {fileID: 11400000, guid: 165b7d06208267249ae42ed49f202183, type: 2}
+--- !u!114 &-3294190514224955292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302735608453620527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &2345680324160742778
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 1307462282124704501}
     m_Modifications:
     - target: {fileID: 3812876574508226176, guid: bc49891f572f1164e9938f845ec37ab0,
@@ -115,7 +132,9 @@ PrefabInstance:
       value: Bread_Visual
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc49891f572f1164e9938f845ec37ab0, type: 3}
 --- !u!4 &1470294267569239034 stripped
 Transform:
