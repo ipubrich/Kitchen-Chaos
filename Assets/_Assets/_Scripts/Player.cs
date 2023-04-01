@@ -66,6 +66,10 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
 
     private void Update()
     {
+        if (!IsOwner) // Check if this is the local player to handle local movement
+        {
+            return;
+        }
         HandleMovement();
         HandleInteractions();
     }
@@ -108,6 +112,8 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
             SetSelectedCounter(null);
         }
     }
+
+    // RPC to run code on server / client remotely
 
     private void HandleMovement()
     {
