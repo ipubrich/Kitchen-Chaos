@@ -58,12 +58,17 @@ public class KitchenObject : NetworkBehaviour
         return kitchenObjectParent;
     }
 
+        
     public void DestroySelf()
     {
-        kitchenObjectParent.ClearKitchenObject();
         Destroy(gameObject);
     }
 
+    public void ClearKitchenObjectOnParent()
+    {
+        kitchenObjectParent.ClearKitchenObject();
+
+    }
     public bool TryGetPlate(out PlateKitchenObject plateKitchenObject)
     {
         // Is this a plate
@@ -82,5 +87,10 @@ public class KitchenObject : NetworkBehaviour
     {
         // passthrough function, spawn kitchen and return
         KitchenGameMultiplayer.Instance.SpawnKitchenObject(kitchenObjectSO, kitchenObjectParent);
+    }
+
+    public static void DestroyKitchenObject(KitchenObject kitchenObject) 
+    {
+        KitchenGameMultiplayer.Instance.DestroyKitchenObject(kitchenObject);
     }
 }
