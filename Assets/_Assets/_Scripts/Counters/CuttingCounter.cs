@@ -61,7 +61,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
                     PlateKitchenObject plateKitchenObject = player.GetKitchenObject() as PlateKitchenObject;
                     if (plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO()))
                     {
-                        GetKitchenObject().DestroySelf();
+                        KitchenObject.DestroyKitchenObject(GetKitchenObject());
                     };
                 }
             }
