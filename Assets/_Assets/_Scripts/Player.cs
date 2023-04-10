@@ -26,7 +26,6 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
 
 
     [SerializeField] private float moveSpeed = 7f;
-    //[SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask countersLayerMask;
     [SerializeField] private LayerMask collisionsLayerMask;
     [SerializeField] private Transform kitchenObjectHoldPoint;
@@ -38,11 +37,6 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
     private BaseCounter selectedCounter;
     private KitchenObject kitchenObject;
 
-
-    //private void Awake()
-    //{
-    //    Instance = this; // (for offline games)
-    //}
 
     private void Start()
     {
@@ -62,6 +56,21 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
         transform.position = spawnPositionList[(int)OwnerClientId];
 
         OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
+
+        
+        if (IsServer) 
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback;
+        }
+    }
+
+    private void NetworkManager_OnClientConnectedCallback(ulong clientId)
+    {
+        // Handle Client disconnects with held objects
+        if (clientId == OwnerClientId && HasKitchenObject())
+        {
+            KitchenObject.DestroyKitchenObject(GetKitchenObject());
+        }
     }
 
     private void GameInput_OnInteractAlternateAction(object sender, EventArgs e)
