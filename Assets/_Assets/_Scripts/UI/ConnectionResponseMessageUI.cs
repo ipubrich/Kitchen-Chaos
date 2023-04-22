@@ -18,7 +18,7 @@ public class ConnectionResponseMessageUI : MonoBehaviour
 
     private void Start()
     {
-        KitchenGameMultiplayer.Instance.onFailedToJoinGame += KitchenGameMultiplayer_onFailedToJoinGame;
+        KitchenGameMultiplayer.Instance.OnFailedToJoinGame += KitchenGameMultiplayer_onFailedToJoinGame;
         Hide();
     }
 
@@ -47,7 +47,7 @@ public class ConnectionResponseMessageUI : MonoBehaviour
     // unsub as UI object destroyed between scenes
     private void OnDestroy()
     {
-        KitchenGameMultiplayer.Instance.onFailedToJoinGame -= KitchenGameMultiplayer_onFailedToJoinGame;
+        KitchenGameMultiplayer.Instance.OnFailedToJoinGame -= KitchenGameMultiplayer_onFailedToJoinGame;
 
     }
 }

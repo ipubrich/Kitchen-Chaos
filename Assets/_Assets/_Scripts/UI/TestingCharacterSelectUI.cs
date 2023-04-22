@@ -12,7 +12,7 @@ public class TestingCharacterSelectUI : MonoBehaviour
     {
         readyButton.onClick.AddListener(() =>
         {
-            CharacterSelectReady.Instance.SerPlayerReady();
+            CharacterSelectReady.Instance.SetPlayerReady();
         });
     }
 }

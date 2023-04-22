@@ -6,8 +6,8 @@ public class ConnectingUI : MonoBehaviour
 {
     private void Start()
     {
-        KitchenGameMultiplayer.Instance.onTryingToJoinGame += KitchenGameMultiplayer_onTryingToJoinGame;
-        KitchenGameMultiplayer.Instance.onFailedToJoinGame += KitchenGameMultiplayer_onFailedToJoinGame;
+        KitchenGameMultiplayer.Instance.OnTryingToJoinGame += KitchenGameMultiplayer_onTryingToJoinGame;
+        KitchenGameMultiplayer.Instance.OnFailedToJoinGame += KitchenGameMultiplayer_onFailedToJoinGame;
         Hide();
     }
 
@@ -34,8 +34,8 @@ public class ConnectingUI : MonoBehaviour
     private void OnDestroy()
     {
         // unsub as UI object destroyed between scenes
-        KitchenGameMultiplayer.Instance.onTryingToJoinGame -= KitchenGameMultiplayer_onTryingToJoinGame;
-        KitchenGameMultiplayer.Instance.onFailedToJoinGame -= KitchenGameMultiplayer_onFailedToJoinGame;
+        KitchenGameMultiplayer.Instance.OnTryingToJoinGame -= KitchenGameMultiplayer_onTryingToJoinGame;
+        KitchenGameMultiplayer.Instance.OnFailedToJoinGame -= KitchenGameMultiplayer_onFailedToJoinGame;
 
     }
 }
